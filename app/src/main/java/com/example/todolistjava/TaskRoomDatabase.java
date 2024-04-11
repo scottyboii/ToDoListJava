@@ -2,9 +2,11 @@ package com.example.todolistjava;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,5 +32,20 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
             }
         }
         return INSTANCE;
+    }
+
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+
+            databaseWriteExecutor.execute(() -> {
+                TaskDao taskDao = INSTANCE.taskDao();
+                taskDao.deleteAll();
+
+                Task task = new Task("Testing", "12/05/2024", "Low", "#22FF00");
+                taskDao.insert(task);
+            });
+        }
     }
 }
