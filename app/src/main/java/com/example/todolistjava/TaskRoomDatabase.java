@@ -27,6 +27,7 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     TaskRoomDatabase.class, "task_database")
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -47,5 +48,5 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
                 taskDao.insert(task);
             });
         }
-    }
+    };
 }
