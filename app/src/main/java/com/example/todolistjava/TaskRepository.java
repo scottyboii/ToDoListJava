@@ -21,7 +21,7 @@ class TaskRepository {
         return mAllTasks;
     }
 
-    void inset(Task task) {
+    void insert(Task task) {
         TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
             mTaskDao.insert(task);
         });
