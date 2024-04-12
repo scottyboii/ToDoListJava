@@ -6,6 +6,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
+
 import java.util.List;
 
 @Dao
@@ -22,5 +24,12 @@ public interface TaskDao {
 
     @Delete
     void deleteTask(Task task);
+
+    @Query("UPDATE tasks SET Name =:newName, DueDate =:newDate, Priority =:newPriority, Colour =:newColour WHERE ID = :id")
+    void updateTask(Integer id, String newName, String newDate, String newPriority, String newColour);
+
+
+    @Update
+    void update(Task task);
 
 }

@@ -46,4 +46,10 @@ class TaskRepository {
         new deleteTaskAsyncTask(mTaskDao).execute(task);
     }
 
+    public void updateTask(Integer taskID, String taskName, String taskDate, String taskPriority, String taskColour) {
+        TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mTaskDao.updateTask(taskID, taskName, taskDate, taskPriority, taskColour);
+        });
+    }
+
 }

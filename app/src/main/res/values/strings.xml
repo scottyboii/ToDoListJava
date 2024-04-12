@@ -6,6 +6,7 @@
     <string name="hint_priority">Task Priority</string>
     <string name="hint_colour">Task Colour</string>
     <string name="button_save">Save Task</string>
+    <string name="button_edit">Edit Task</string>
     <string name="not_saved_empty">Task not saved because of an empty field</string>
     <string name="not_saved_colour_format">Task not saved due to incorrect colour format. #FFFFFF</string>
     <string name="not_saved_priority">Task not saved due to incorrect priority entered</string>
