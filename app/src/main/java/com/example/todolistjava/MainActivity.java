@@ -2,6 +2,7 @@ package com.example.todolistjava;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         mTaskViewModel.getAllTasks().observe(this, tasks -> {
             adapter.submitList(tasks);
+            adapter.setTasks(tasks);
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -38,6 +41,33 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, NewTaskActivity.class);
             startActivityForResult(intent, NEW_TASK_ACTIVITY_REQUEST_CODE);
         });
+
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+                    @Override
+                    public boolean onMove(RecyclerView recyclerview,
+                                          RecyclerView.ViewHolder viewHolder,
+                                          RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder,
+                                         int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Task myTask = adapter.getTaskAtPosition(position);
+                        Toast.makeText(MainActivity.this, "Deleting " +
+                                myTask.getTaskName(), Toast.LENGTH_LONG).show();
+
+                        mTaskViewModel.deleteTask(myTask);
+                    }
+
+                }
+        );
+
+        helper.attachToRecyclerView(recyclerView);
 
     }
 

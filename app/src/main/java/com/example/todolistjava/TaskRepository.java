@@ -1,6 +1,7 @@
 package com.example.todolistjava;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -25,6 +26,24 @@ class TaskRepository {
         TaskRoomDatabase.databaseWriteExecutor.execute(() -> {
             mTaskDao.insert(task);
         });
+    }
+
+    private static class deleteTaskAsyncTask extends AsyncTask<Task, Void, Void> {
+        private TaskDao mAsyncTaskDao;
+
+        deleteTaskAsyncTask(TaskDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Task... params) {
+            mAsyncTaskDao.deleteTask(params[0]);
+            return null;
+        }
+    }
+
+    public void deleteTask(Task task) {
+        new deleteTaskAsyncTask(mTaskDao).execute(task);
     }
 
 }

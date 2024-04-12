@@ -2,6 +2,7 @@ package com.example.todolistjava;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -18,5 +19,8 @@ public interface TaskDao {
 
     @Query("SELECT * FROM tasks ORDER BY Name ASC")
     LiveData<List<Task>> getAlphabetisedTasks();
+
+    @Delete
+    void deleteTask(Task task);
 
 }
