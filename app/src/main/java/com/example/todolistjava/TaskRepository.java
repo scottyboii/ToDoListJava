@@ -60,4 +60,8 @@ class TaskRepository {
         return mTaskDao.getAllPriority();
     }
 
+    LiveData<List<Task>> getTaskByPriority(String priority) {
+        return mTaskDao.getTaskByPriority(priority);
+    }
+
 }

@@ -37,4 +37,7 @@ public interface TaskDao {
     @Query("SELECT DISTINCT Priority FROM tasks")
     List<String> getAllPriority();
 
+    @Query("SELECT * FROM tasks WHERE Priority =:priority")
+    LiveData<List<Task>> getTaskByPriority(String priority);
+
 }

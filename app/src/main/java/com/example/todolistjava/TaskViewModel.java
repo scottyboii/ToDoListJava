@@ -31,4 +31,6 @@ public class TaskViewModel extends AndroidViewModel {
 
     List<String> getAllPriority() { return mRepository.getAllPriority(); }
 
+    LiveData<List<Task>> getTaskByPriority(String priority) { return mRepository.getTaskByPriority(priority); }
+
 }

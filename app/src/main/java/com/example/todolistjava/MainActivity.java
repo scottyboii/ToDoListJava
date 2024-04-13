@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -36,17 +38,36 @@ public class MainActivity extends AppCompatActivity {
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
-        mTaskViewModel.getAllTasks().observe(this, tasks -> {
-            adapter.submitList(tasks);
-            adapter.setTasks(tasks);
-        });
-
-        List<String> priority = mTaskViewModel.getAllPriority();
+        List<String> priorities = mTaskViewModel.getAllPriority();
 
         Spinner dropdown = findViewById(R.id.priorityDropDown);
-        priority.add(0, "All");
-        ArrayAdapter<String> dropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, priority);
+        priorities.add(0, "All");
+        ArrayAdapter<String> dropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, priorities);
         dropdown.setAdapter(dropdownAdapter);
+
+        MainActivity currentThis = this;
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String priority = priorities.get(i);
+                if (priority == "All") {
+                    mTaskViewModel.getAllTasks().observe(currentThis, tasks -> {
+                        adapter.submitList(tasks);
+                        adapter.setTasks(tasks);
+                    });
+                } else {
+                    mTaskViewModel.getTaskByPriority(priority).observe(currentThis, tasks -> {
+                        adapter.submitList(tasks);
+                        adapter.setTasks(tasks);
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
