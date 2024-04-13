@@ -34,4 +34,7 @@ public interface TaskDao {
     @Update
     void update(Task task);
 
+    @Query("SELECT DISTINCT Priority FROM tasks")
+    List<String> getAllPriority();
+
 }

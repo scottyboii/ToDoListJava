@@ -29,4 +29,6 @@ public class TaskViewModel extends AndroidViewModel {
 
     List<String> getDueDates() { return mRepository.getDueDates(); }
 
+    List<String> getAllPriority() { return mRepository.getAllPriority(); }
+
 }

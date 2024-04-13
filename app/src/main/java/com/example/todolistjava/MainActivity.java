@@ -9,10 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
             adapter.submitList(tasks);
             adapter.setTasks(tasks);
         });
+
+        List<String> priority = mTaskViewModel.getAllPriority();
+
+        Spinner dropdown = findViewById(R.id.priorityDropDown);
+        priority.add(0, "All");
+        ArrayAdapter<String> dropdownAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, priority);
+        dropdown.setAdapter(dropdownAdapter);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {

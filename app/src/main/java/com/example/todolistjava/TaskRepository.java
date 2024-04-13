@@ -56,4 +56,8 @@ class TaskRepository {
         return mTaskDao.getDueDates();
     }
 
+    List<String> getAllPriority() {
+        return mTaskDao.getAllPriority();
+    }
+
 }
