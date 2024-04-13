@@ -43,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, NEW_TASK_ACTIVITY_REQUEST_CODE);
         });
 
+        FloatingActionButton fabCalendar = findViewById(R.id.fabOpenCalendar);
+        fabCalendar.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, TaskCalendarActivity.class);
+            startActivityForResult(intent, 3);
+        });
+
         ItemTouchHelper helper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0,
                         ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

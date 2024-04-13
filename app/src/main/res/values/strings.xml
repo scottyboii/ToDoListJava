@@ -10,4 +10,5 @@
     <string name="not_saved_empty">Task not saved because of an empty field</string>
     <string name="not_saved_colour_format">Task not saved due to incorrect colour format. #FFFFFF</string>
     <string name="not_saved_priority">Task not saved due to incorrect priority entered</string>
+    <string name="open_calendar">Open Calendar</string>
 </resources>
