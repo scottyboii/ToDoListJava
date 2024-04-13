@@ -21,7 +21,7 @@ public class TaskCalendarActivity extends AppCompatActivity {
 
     CompactCalendarView calendarView;
     TaskViewModel mTaskViewModel;
-    List<String> mDueDates;
+    List<DateColour> mDueDates;
     TextView mMonthView;
     FloatingActionButton mBackButton;
 
@@ -62,7 +62,8 @@ public class TaskCalendarActivity extends AppCompatActivity {
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mDueDates = mTaskViewModel.getDueDates();
         for (int i = 0; i < mDueDates.size(); i++) {
-            String dateStr = mDueDates.get(i);
+            String dateStr = mDueDates.get(i).getDueDate();
+            String eventColour = mDueDates.get(i).getColour();
 
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             Date date = null;
@@ -74,7 +75,7 @@ public class TaskCalendarActivity extends AppCompatActivity {
 
             long time = date.getTime();
 
-            Event newEvent = new Event(Color.GREEN, time, "Test");
+            Event newEvent = new Event(Color.parseColor(eventColour), time, "Test");
             calendarView.addEvent(newEvent);
         }
 

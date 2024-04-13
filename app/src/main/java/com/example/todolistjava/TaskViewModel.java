@@ -27,7 +27,7 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void updateTask(Integer taskID, String taskName, String taskDate, String taskPriority, String taskColour) {mRepository.updateTask(taskID, taskName, taskDate, taskPriority, taskColour);}
 
-    List<String> getDueDates() { return mRepository.getDueDates(); }
+    List<DateColour> getDueDates() { return mRepository.getDueDates(); }
 
     List<String> getAllPriority() { return mRepository.getAllPriority(); }
 

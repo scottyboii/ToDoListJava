@@ -28,8 +28,8 @@ public interface TaskDao {
     @Query("UPDATE tasks SET Name =:newName, DueDate =:newDate, Priority =:newPriority, Colour =:newColour WHERE ID = :id")
     void updateTask(Integer id, String newName, String newDate, String newPriority, String newColour);
 
-    @Query("SELECT DueDate from tasks")
-    List<String> getDueDates();
+    @Query("SELECT DueDate, Colour from tasks")
+    List<DateColour> getDueDates();
 
     @Update
     void update(Task task);

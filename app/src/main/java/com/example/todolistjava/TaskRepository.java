@@ -52,7 +52,7 @@ class TaskRepository {
         });
     }
 
-    List<String> getDueDates() {
+    List<DateColour> getDueDates() {
         return mTaskDao.getDueDates();
     }
 
