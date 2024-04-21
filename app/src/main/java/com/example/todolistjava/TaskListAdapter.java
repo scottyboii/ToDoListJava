@@ -1,5 +1,6 @@
 package com.example.todolistjava;
 
+import android.graphics.Color;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,13 @@ public class TaskListAdapter extends ListAdapter<Task, TaskViewHolder> {
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task current = getItem(position);
-        holder.bind(current);
+        try {
+            holder.bind(current);
+            String eventColour = mTasks.get(position).getTaskColour();
+            holder.itemView.setBackgroundColor(Color.parseColor(eventColour));
+        } catch(IndexOutOfBoundsException e){
+            holder.bind(current);
+        }
     }
 
     void setTasks(List<Task> tasks) {

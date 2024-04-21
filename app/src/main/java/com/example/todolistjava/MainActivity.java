@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
                     });
                 } else {
                     mTaskViewModel.getTaskByPriority(priority).observe(currentThis, tasks -> {
-                        adapter.submitList(tasks);
                         adapter.setTasks(tasks);
+                        adapter.submitList(tasks);
                     });
                 }
             }
