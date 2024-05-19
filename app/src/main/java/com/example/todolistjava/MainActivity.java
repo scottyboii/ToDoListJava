@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -135,8 +136,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        String requestCodeString = Integer.toString(resultCode);
         if (requestCode == NEW_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Log.i("Testing", requestCodeString);
             Bundle extras = data.getExtras();
             String taskName = extras.getString("EXTRA_NAME");
             String taskDate = extras.getString("EXTRA_DATE");
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
             Task task = new Task(taskName, taskDate, taskPriority, taskColour);
             mTaskViewModel.insert(task);
-        } if (requestCode == EDIT_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        } else if (requestCode == EDIT_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Integer taskID = extras.getInt("EXTRA_ID");
             String taskName = extras.getString("EXTRA_NAME");
@@ -154,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             String taskColour = extras.getString("EXTRA_COLOUR");
 
             mTaskViewModel.updateTask(taskID, taskName, taskDate, taskPriority, taskColour);
-        }else {
+        } else {
             Toast.makeText(
                     getApplicationContext(),
                     R.string.not_saved_empty,

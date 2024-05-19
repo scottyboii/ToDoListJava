@@ -26,7 +26,7 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
             synchronized (TaskRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    TaskRoomDatabase.class, "task_database")
+                                    TaskRoomDatabase.class, "taskdatabase")
                             .addCallback(sRoomDatabaseCallback)
                             .allowMainThreadQueries()
                             .build();
